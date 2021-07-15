@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from DZ3.car.views import car_view
+from car.views import car_view
 urlpatterns = [
     path("", include("car.urls")),
     path('admin/', admin.site.urls),
