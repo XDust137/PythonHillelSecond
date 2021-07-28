@@ -83,14 +83,13 @@ print('Game begins!')
 for i in range(9):
     for player in players:
         throw1 = throw_check(player, int(input("Write your hited keglse: ")))
-        if throw1 == "X":
-            print("STRIKE")
-            # Скорее всего эта строчка и вовсе не нужна но пускай будет наверное? Не уверен
-            res = player.list_of_frame[-1]
+        if throw1 == "X": print("STRIKE")
+        if throw1 == "/": print("SPARE")
         throw2 = throw_check(player, throw1, int(input("Write your next hited keglse: ")))
-        if throw2 == "/": print("SPARE")
+        if throw2 == "X": print("STRIKE")
+        else: print("SPARE")
         # Скорее всего эта строчка и вовсе не нужна но пускай будет наверное? Не уверен
-        res = player.list_of_frame[-1]
+        # res = player.list_of_frame[-1]
 else: pass
 
 for player in players:
