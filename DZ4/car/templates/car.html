@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block content %}
+
+<h1>Car</h1>
+<h3>{{car.name}}</h3>
+<p class="h5">{{car.vin_number}}</p>
+<p class="h5">{{car.model}}</p>
+<p class="h5">{{car.company}}</p>
+<div class="row">
+  <div class="col-12 color_text_red" >
+    {% lorem 3 p %}
+  </div>
+</div>
+{% endblock content%}
