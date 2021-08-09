@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block content %}
+
+<h1>{{rowsession.row.name}}</h1>
+<h3>{{rowsession.name}}</h3>
+<a href="{% url 'row_session-update' rowsession.pk %}"><button class="btn btn-primary" type="button" name="button">Update</button></a>
+<div class="row">
+  <div class="col-12 color_text_red" >
+    {% for player in rowsession.players.all  %}
+    <div class="border border-success rounded ms-1 pl-5">
+      <div class="row ms-1">
+        <div class="col-3 mt-3">
+          <p class="h3">{{player.name}}</p>
+        </div>
+      </div>
+      <div class="row ms-1">
+        {% for frame in player.frames.all %}
+        <div class="col-2 mb-2">
+          <p>{{frame.name}}</p>
+          <form class="throws_form" action="{% url 'row_session-throws' rowsession.pk %}" method="post">
+            {% for throw in frame.throws.all %}
+              <p>{{throw.name}}:{{throw.value}}</p>
+            {% endfor %}
+          </form>
+        </div>
+        {% endfor %}
+        <div class="col-2 mb-2">
+          <p>frame 1</p>
+          <form class="throws_form" action="{% url 'row_session-throws' rowsession.pk %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="frame_name" value="1">
+            <input type="hidden" name="player" value="{{player.pk}}">
+            <p>
+              <label>Throw 1</label>
+              <input class="form-control" type="text" name="throw_1">
+            </p>
+            <p>
+              <label>Throw 2</label>
+              <input class="form-control" type="text" name="throw_2">
+            </p>
+            <button class="btn btn-success" type="submit" name="button">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+{% block extra_js %}
+<script>
+  $( document ).ready( function() {
+    $(".throws_form").submit(
+      function(event) {
+        event.preventDefault()
+        $.ajax({
+          url: $(this).attr("action"),
+          method: $(this).attr("method"),
+          data: $(this).serializeArray(),
+          success: function(response, status, request ) {
+            console.log(response.status)
+          }
+          complete: function(res)
+        })
+      })
+  })
+</script>
+{% endblock extra_js %}
