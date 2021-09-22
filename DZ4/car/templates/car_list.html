@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-4 color_text_red">
+    <h1>{{title}}</h1>
+  </div>
+  <div class="col-4">
+    {% now "jS F Y H:i" as date_now %}
+    <h3>{{date_now}}</h3>
+  </div>
+  <div class="col-4">
+    <a class="btn btn-primary" href="{% url 'car-create' %}">Create</a>
+  </div>
+</div>
+{% regroup car_list by car_model as models_list %}
+{% for car_model in models_list %}
+<h1>{{car_model.grouper}}</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">vin</th>
+    </tr>
+  </thead>
+    <tbody>
+      {% for car in car_model.list %}
+      <tr>
+        <th scope="row"><a href="/car/{{car.id}}">{{car.name}}</a></th>
+        <td>{{car.vin_number}}</td>
+      </tr>
+      {% endfor %}
+    <tbody>
+</table>
+{% endfor %}
+{% endblock content%}

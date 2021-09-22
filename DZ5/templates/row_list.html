@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-4 color_text_red">
+    <h1>{{title}}</h1>
+  </div>
+  <div class="col-4">
+    {% now "jS F Y H:i" as date_now %}
+    <h3>{{date_now}}</h3>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">action</th>
+      <th scope="col">status</th>
+    </tr>
+  </thead>
+    <tbody>
+      {% for row in row_list %}
+      <tr>
+        <th scope="row"><a href="/row/{{row.id}}">{{row.name}}</a></th>
+        <td><a href="{% url 'row_session-create' %}?row={{row.pk}}"><button class="btn btn-success" type="button" name="button">Add players</button></a></td>
+        <td><span class="btn btn-primary">OPEN</span></td>
+      </tr>
+      {% endfor %}
+    <tbody>
+</table>
+{% endblock content%}

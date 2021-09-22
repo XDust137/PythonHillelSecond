@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block content %}
+
+<h1>{{row.name}}</h1>
+<div class="row">
+  {% for row_session in row.row_sessions.all %}
+
+  <div class="col-3 border border-success rounded ms-1" >
+    <a href="{% url 'row_session-detail' row_session.pk %}">
+    <p>
+    <label for="user">User:</label>
+    <input class="form-control" type="text" name="user" value="{{row_session.user}}" readonly>
+    </p>
+    <p>
+    <label for="date">Date:</label>
+    <input class="form-control" type="text" name="date" value="{{row_session.date}}" readonly>
+    </p>
+    </a>
+  </div>
+
+  {% endfor %}
+</div>
+{% endblock content%}
